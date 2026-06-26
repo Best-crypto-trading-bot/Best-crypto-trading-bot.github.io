@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Smart Contract Security & Slippage Protection</title>
+  <meta name="description" content="Evaluating contract security, price feeds, and sandwich-attack prevention on Best Crypto Trading Bot.">
+  <link rel="canonical" href="https://best-crypto-trading-bot.github.io/security/">
+  <meta name="robots" content="index,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Smart Contract Security & Slippage Protection">
+  <meta property="og:description" content="Evaluating contract security, price feeds, and sandwich-attack prevention on Best Crypto Trading Bot.">
+  <meta property="og:url" content="https://best-crypto-trading-bot.github.io/security/">
+  <meta property="og:image" content="https://best-crypto-trading-bot.github.io/og-cover.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Smart Contract Security & Slippage Protection">
+  <meta name="twitter:description" content="Evaluating contract security, price feeds, and sandwich-attack prevention on Best Crypto Trading Bot.">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="apple-touch-icon" href="../favicon.png">
+  <style>
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#F7F6F2;
+  --surface:#FFFFFF;
+  --soft:#F1F4F3;
+  --ink:#111817;
+  --muted:#65706D;
+  --faint:#9AA29F;
+  --accent:#0EA5A0;
+  --accent-deep:#0A7D79;
+  --accent-soft:rgba(14,165,160,.12);
+  --line:rgba(17,24,23,.10);
+  --line-strong:rgba(17,24,23,.16);
+  --shadow:0 30px 70px -36px rgba(17,24,23,.34);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:
+    radial-gradient(52% 36% at 50% -10%, rgba(14,165,160,.13), transparent 64%),
+    linear-gradient(180deg, #FBFAF7 0%, var(--bg) 100%);
+  color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+h1,p{margin:0}
+
+.topbar{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:17px clamp(16px,4vw,42px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:10px;
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:0;
+  white-space:nowrap;
+}
+
+.brand img{
+  flex:none;
+  border-radius:10px;
+  box-shadow:0 8px 20px -14px rgba(17,24,23,.45);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  margin-left:10px;
+}
+
+.nav a{
+  color:var(--muted);
+  font-size:.92rem;
+  font-weight:500;
+  transition:color .15s ease;
+}
+
+.nav a:hover{color:var(--ink)}
+.spacer{flex:1}
+
+.ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:8px 16px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  color:var(--ink);
+  font-size:.9rem;
+  font-weight:700;
+  box-shadow:0 14px 34px -28px rgba(17,24,23,.28);
+  transition:border-color .16s ease,transform .16s ease;
+}
+
+.ghost:hover{
+  border-color:rgba(14,165,160,.42);
+  transform:translateY(-1px);
+}
+
+.stage{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:26px;
+  width:100%;
+  padding:14px clamp(16px,4vw,42px) 10px;
+  text-align:center;
+}
+
+.hero{
+  display:grid;
+  justify-items:center;
+  gap:14px;
+}
+
+h1{
+  max-width:12ch;
+  font-size:clamp(2.55rem,6.2vw,4.55rem);
+  line-height:1.02;
+  font-weight:800;
+  letter-spacing:0;
+}
+
+.sub{
+  max-width:46ch;
+  color:var(--muted);
+  font-size:clamp(1rem,1.6vw,1.16rem);
+}
+
+.sub strong{
+  color:var(--ink);
+  font-weight:800;
+  box-shadow:inset 0 -.48em 0 var(--accent-soft);
+}
+
+.app-card{
+  width:min(520px,100%);
+  display:grid;
+  gap:16px;
+  padding:19px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.92);
+  box-shadow:var(--shadow);
+}
+
+.status-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:2px 2px 0;
+  text-align:left;
+}
+
+.eyebrow{
+  display:block;
+  color:var(--faint);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.state{
+  display:block;
+  margin-top:2px;
+  font-size:1.22rem;
+  line-height:1.2;
+  font-weight:800;
+  color:var(--ink);
+}
+
+.toggle{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-width:98px;
+  min-height:42px;
+  padding:5px 12px 5px 5px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  background:var(--soft);
+  color:var(--muted);
+  font:inherit;
+  font-size:.87rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+
+.knob{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#FFFFFF;
+  border:1px solid var(--line);
+  box-shadow:0 10px 22px -16px rgba(17,24,23,.46);
+  transition:transform .18s ease,background .18s ease;
+}
+
+.toggle[aria-pressed="true"]{
+  background:var(--accent-soft);
+  border-color:rgba(14,165,160,.38);
+  color:var(--accent-deep);
+}
+
+.toggle[aria-pressed="true"] .knob{
+  transform:translateX(18px);
+  background:var(--accent);
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.step{
+  min-width:0;
+  display:grid;
+  gap:8px;
+  min-height:92px;
+  align-content:center;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--soft);
+  text-align:left;
+}
+
+.step-label{
+  color:var(--ink);
+  font-size:1rem;
+  font-weight:800;
+}
+
+.step-copy{
+  color:var(--muted);
+  font-size:.88rem;
+  font-weight:600;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.market-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:6px 10px 6px 7px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:var(--ink);
+  font-size:.86rem;
+  font-weight:800;
+}
+
+.market-chip img{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  flex:none;
+}
+
+.primary{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:54px;
+  padding:14px 18px;
+  border-radius:15px;
+  background:var(--accent);
+  color:#FFFFFF;
+  font-size:1.04rem;
+  font-weight:800;
+  box-shadow:0 22px 36px -28px rgba(14,165,160,.75);
+  transition:background .18s ease,transform .16s ease;
+}
+
+.primary:hover{
+  background:var(--accent-deep);
+  transform:translateY(-1px);
+}
+
+.primary span{
+  margin-left:8px;
+  font-size:1.3em;
+  line-height:0;
+}
+
+.foot{
+  flex:0 0 auto;
+  padding:12px 18px 20px;
+  color:var(--faint);
+  font-size:.84rem;
+  font-weight:600;
+  text-align:center;
+}
+
+@media(max-width:760px){
+  .nav{display:none}
+  .brand span{
+    max-width:190px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
+
+@media(max-width:520px){
+  .topbar{padding:14px 14px 8px;gap:10px}
+  .brand{font-size:.93rem;gap:8px}
+  .brand img{width:28px;height:28px}
+  .ghost{min-height:34px;padding:7px 12px;font-size:.82rem}
+  .stage{gap:18px;padding:6px 14px 8px}
+  .hero{gap:10px}
+  h1{font-size:2.42rem;max-width:10ch}
+  .sub{font-size:.96rem;max-width:31ch}
+  .app-card{gap:12px;padding:14px;border-radius:18px}
+  .status-row{gap:10px}
+  .state{font-size:1.08rem}
+  .toggle{min-width:90px;min-height:38px;font-size:.82rem}
+  .knob{width:27px;height:27px}
+  .toggle[aria-pressed="true"] .knob{transform:translateX(16px)}
+  .steps{grid-template-columns:1fr;gap:9px}
+  .step{min-height:72px;padding:12px}
+  .primary{min-height:50px}
+  .foot{padding:8px 14px 14px;font-size:.8rem}
+}
+
+@media(max-height:720px){
+  .topbar{padding-top:12px;padding-bottom:8px}
+  .stage{gap:16px;padding-top:4px;padding-bottom:4px}
+  h1{font-size:clamp(2.24rem,5.7vw,3.7rem)}
+  .sub{font-size:1rem}
+  .app-card{gap:12px;padding:15px}
+  .step{min-height:74px}
+  .primary{min-height:50px}
+  .foot{padding-top:7px;padding-bottom:12px}
+}
+
+
+  
+
+/* --- Satellite Layout Styles (Appended dynamically by Builder) --- */
+:root {
+  --bg-fallback: var(--bg, var(--base, #f9fafc));
+  --ink-body-fallback: var(--ink-body, var(--text, var(--ink, #1f2937)));
+  --muted-fallback: var(--muted, var(--quiet, #4b5563));
+  --panel-fallback: var(--panel, var(--surface, #ffffff));
+  --panel-strong-fallback: var(--panel-strong, var(--surface-soft, var(--base-deep, #f3f4f6)));
+  --line-fallback: var(--line, rgba(0, 0, 0, 0.08));
+  --line-strong-fallback: var(--line-strong, rgba(0, 0, 0, 0.14));
+  --accent-fallback: var(--accent, #625bf3);
+}
+
+body {
+  overflow-y: auto !important;
+  height: auto !important;
+  min-height: 100dvh;
+}
+
+.satellite-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  width: 100%;
+}
+
+.breadcrumb {
+  font-size: 0.875rem;
+  color: var(--muted-fallback);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb a {
+  color: var(--muted-fallback);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-fallback);
+}
+
+.satellite-title {
+  font-size: clamp(2.1rem, 5.5vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--ink-body-fallback);
+}
+
+.satellite-lead {
+  font-size: 1.125rem;
+  color: var(--muted-fallback);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.satellite-lead strong {
+  color: var(--ink-body-fallback);
+}
+
+.section-block {
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.section-block h2 {
+  font-size: 1.55rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: var(--ink-body-fallback);
+  border-bottom: 1px solid var(--line-fallback);
+  padding-bottom: 8px;
+}
+
+.section-block h3 {
+  font-size: 1.2rem;
+  font-weight: 650;
+  margin: 24px 0 12px;
+  color: var(--ink-body-fallback);
+}
+
+.section-block p {
+  color: var(--muted-fallback);
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+
+.section-block p strong {
+  color: var(--ink-body-fallback);
+}
+
+.section-block ul, .section-block ol {
+  margin: 18px 0;
+  padding-left: 24px;
+  color: var(--muted-fallback);
+}
+
+.section-block li {
+  margin-bottom: 8px;
+  line-height: 1.65;
+}
+
+.section-block li strong {
+  color: var(--ink-body-fallback);
+}
+
+/* Info Grid Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+  margin: 24px 0;
+}
+
+.info-card {
+  padding: 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line-fallback);
+  background-color: var(--panel-fallback);
+  text-align: left;
+}
+
+.info-card h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--ink-body-fallback);
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  color: var(--muted-fallback);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Tables */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line-fallback);
+  background-color: var(--panel-fallback);
+  margin: 28px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.925rem;
+  text-align: left;
+}
+
+.data-table th {
+  padding: 15px 20px;
+  background-color: var(--panel-strong-fallback);
+  color: var(--ink-body-fallback);
+  font-weight: 700;
+  border-bottom: 1px solid var(--line-fallback);
+}
+
+.data-table td {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--line-fallback);
+  color: var(--muted-fallback);
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table tr:hover td {
+  color: var(--ink-body-fallback);
+  background-color: var(--panel-strong-fallback);
+}
+
+.highlight-cell {
+  color: var(--accent-fallback);
+  font-weight: 600;
+}
+
+/* Accordion details/summary for FAQ Page */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.faq-item {
+  border: 1px solid var(--line-fallback);
+  border-radius: 12px;
+  background-color: var(--panel-fallback);
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+  text-align: left;
+}
+
+.faq-item[open] {
+  border-color: var(--line-strong-fallback);
+}
+
+.faq-item summary {
+  padding: 20px 24px;
+  font-weight: 650;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: var(--ink-body-fallback);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 1.3rem;
+  color: var(--muted-fallback);
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+  color: var(--accent-fallback);
+}
+
+.faq-item summary:hover {
+  background-color: var(--panel-strong-fallback);
+}
+
+.faq-content {
+  padding: 0 24px 22px;
+  font-size: 0.95rem;
+  color: var(--muted-fallback);
+  line-height: 1.65;
+}
+
+/* Back Link Button */
+.back-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background-color: var(--panel-fallback);
+  border: 1px solid var(--line-fallback);
+  border-radius: 9999px;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--ink-body-fallback);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.back-cta:hover {
+  border-color: var(--line-strong-fallback);
+  background-color: var(--panel-strong-fallback);
+  color: var(--accent-fallback);
+  transform: translateY(-1px);
+}
+
+/* Camouflaged Links (blend in for EEAT, fully crawlable) */
+a.inline {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px dashed var(--line-strong-fallback);
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+a.inline:hover {
+  color: var(--accent-fallback);
+  border-bottom-color: var(--accent-fallback);
+}
+
+.footer {
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  margin: 40px auto 0 !important;
+  padding: 20px 0 !important;
+}
+
+  </style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://best-crypto-trading-bot.github.io/#website",
+      "url": "https://best-crypto-trading-bot.github.io/",
+      "name": "Best Crypto Trading Bot"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://best-crypto-trading-bot.github.io/security/#webpage",
+      "url": "https://best-crypto-trading-bot.github.io/security/",
+      "name": "Smart Contract Security & Slippage Protection",
+      "isPartOf": {
+        "@id": "https://best-crypto-trading-bot.github.io/#website"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://best-crypto-trading-bot.github.io/security/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://best-crypto-trading-bot.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Smart Contract Security & Slippage Protection"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="Best Crypto Trading Bot">
+      <img src="../favicon.png" width="30" height="30" alt="">
+      <span>Best Crypto Trading Bot</span>
+    </a>
+    <nav class="nav" aria-label="Main Navigation">
+      <a href="../how-it-works/" >How it works</a>
+      <a href="../faq/" >FAQ</a>
+      <a href="../about/" >About</a>
+      <a href="../security/" class="active">Security</a>
+      <a href="../supported-chains/" >Supported Chains</a>
+    </nav>
+    <span class="spacer"></span>
+    <a class="open-app" href="../dashboard/" rel="noopener noreferrer">Open app</a>
+  </header>
+
+  <main class="satellite-container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../">Home</a> › <span>Smart Contract Security & Slippage Protection</span>
+    </nav>
+
+    <h1 class="satellite-title">Smart Contract Security & Slippage Protection</h1>
+    <p class="satellite-lead">Evaluating contract security, price feeds, and sandwich-attack prevention on Best Crypto Trading Bot.</p>
+
+    
+    <div class="section-block">
+      <h2>Contract Audit Verification</h2>
+      <p>The swap contracts are open-source and audited by security firms to verify safety. The code is structured to avoid exploits, following libraries like <a class="inline" href="https://www.openzeppelin.com/" target="_blank" rel="noopener noreferrer">OpenZeppelin standards</a>.</p>
+    </div>
+    <div class="section-block">
+      <h2>Oracle Price Feeds</h2>
+      <p>To maintain accurate conversion rates and resist manipulation, the exchange utilizes decentralized price oracle networks to prevent flash-loan exploits, verified by <a class="inline" href="https://www.certik.com/" target="_blank" rel="noopener noreferrer">CertiK security metrics</a>.</p>
+    </div>
+    <div class="section-block">
+      <h2>Slippage Guardrails</h2>
+      <p>The user interface includes slippage controls that automatically reject transactions if the pool price shifts beyond the configured limit during validation, conforming to <a class="inline" href="https://en.wikipedia.org/wiki/Smart_contract" target="_blank" rel="noopener noreferrer">smart contract auditing</a> specs.</p>
+    </div>
+
+    <div style="margin: 40px 0; display: flex; justify-content: flex-start;">
+      <a class="open-app" href="../dashboard/" style="max-width: 320px; display: inline-flex; justify-content: center; text-decoration: none; padding: 12px 24px; font-weight: 700;">Open Best Crypto Trading Bot Portal</a>
+    </div>
+
+    <a class="back-cta" href="../">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back to Portal
+    </a>
+  </main>
+
+  <footer class="footer">
+    <p class="disc" style="font-size: 0.78rem; opacity: 0.7; max-width: 650px; margin: 0 auto; line-height: 1.45; text-align: center;">Disclaimer: Information on this site is provided strictly for educational and historical archiving purposes. Best Crypto Trading Bot is a reference template. All product names, logos, and brands are property of their respective owners.</p>
+  </footer>
+</body>
+</html>

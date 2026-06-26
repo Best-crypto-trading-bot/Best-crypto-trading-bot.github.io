@@ -3,120 +3,398 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Best Crypto Trading Bot</title>
-  <meta name="description" content="Best Crypto Trading Bot automates trading strategies from your own connected wallet.">
+  <title>Best Crypto Trading Bot - Decentralized DeFi Portal</title>
+  <meta name="description" content="Secure, non-custodial portal for Best Crypto Trading Bot DeFi operations directly from your own wallet.">
   <link rel="canonical" href="https://best-crypto-trading-bot.github.io/">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="theme-color" content="#F7F6F2">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Best Crypto Trading Bot">
-  <meta property="og:description" content="Best Crypto Trading Bot automates trading strategies from your own connected wallet.">
-  <meta property="og:url" content="https://best-crypto-trading-bot.github.io/">
-  <meta property="og:image" content="https://best-crypto-trading-bot.github.io/favicon.png">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Best Crypto Trading Bot">
-  <meta name="twitter:description" content="Best Crypto Trading Bot automates trading strategies from your own connected wallet.">
+  <meta name="robots" content="index,follow">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="stylesheet" href="style.css">
+  <link rel="prefetch" href="dashboard/">
+  <link rel="prerender" href="dashboard/">
+  <style>
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#F7F6F2;
+  --surface:#FFFFFF;
+  --soft:#F1F4F3;
+  --ink:#111817;
+  --muted:#65706D;
+  --faint:#9AA29F;
+  --accent:#0EA5A0;
+  --accent-deep:#0A7D79;
+  --accent-soft:rgba(14,165,160,.12);
+  --line:rgba(17,24,23,.10);
+  --line-strong:rgba(17,24,23,.16);
+  --shadow:0 30px 70px -36px rgba(17,24,23,.34);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:
+    radial-gradient(52% 36% at 50% -10%, rgba(14,165,160,.13), transparent 64%),
+    linear-gradient(180deg, #FBFAF7 0%, var(--bg) 100%);
+  color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+h1,p{margin:0}
+
+.topbar{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  padding:17px clamp(16px,4vw,42px);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  min-width:0;
+  gap:10px;
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:0;
+  white-space:nowrap;
+}
+
+.brand img{
+  flex:none;
+  border-radius:10px;
+  box-shadow:0 8px 20px -14px rgba(17,24,23,.45);
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  margin-left:10px;
+}
+
+.nav a{
+  color:var(--muted);
+  font-size:.92rem;
+  font-weight:500;
+  transition:color .15s ease;
+}
+
+.nav a:hover{color:var(--ink)}
+.spacer{flex:1}
+
+.ghost{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:8px 16px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  background:rgba(255,255,255,.72);
+  color:var(--ink);
+  font-size:.9rem;
+  font-weight:700;
+  box-shadow:0 14px 34px -28px rgba(17,24,23,.28);
+  transition:border-color .16s ease,transform .16s ease;
+}
+
+.ghost:hover{
+  border-color:rgba(14,165,160,.42);
+  transform:translateY(-1px);
+}
+
+.stage{
+  flex:1 1 auto;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:26px;
+  width:100%;
+  padding:14px clamp(16px,4vw,42px) 10px;
+  text-align:center;
+}
+
+.hero{
+  display:grid;
+  justify-items:center;
+  gap:14px;
+}
+
+h1{
+  max-width:12ch;
+  font-size:clamp(2.55rem,6.2vw,4.55rem);
+  line-height:1.02;
+  font-weight:800;
+  letter-spacing:0;
+}
+
+.sub{
+  max-width:46ch;
+  color:var(--muted);
+  font-size:clamp(1rem,1.6vw,1.16rem);
+}
+
+.sub strong{
+  color:var(--ink);
+  font-weight:800;
+  box-shadow:inset 0 -.48em 0 var(--accent-soft);
+}
+
+.app-card{
+  width:min(520px,100%);
+  display:grid;
+  gap:16px;
+  padding:19px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.92);
+  box-shadow:var(--shadow);
+}
+
+.status-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:2px 2px 0;
+  text-align:left;
+}
+
+.eyebrow{
+  display:block;
+  color:var(--faint);
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.state{
+  display:block;
+  margin-top:2px;
+  font-size:1.22rem;
+  line-height:1.2;
+  font-weight:800;
+  color:var(--ink);
+}
+
+.toggle{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-width:98px;
+  min-height:42px;
+  padding:5px 12px 5px 5px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  background:var(--soft);
+  color:var(--muted);
+  font:inherit;
+  font-size:.87rem;
+  font-weight:800;
+  cursor:pointer;
+  transition:background .18s ease,border-color .18s ease,color .18s ease;
+}
+
+.knob{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:#FFFFFF;
+  border:1px solid var(--line);
+  box-shadow:0 10px 22px -16px rgba(17,24,23,.46);
+  transition:transform .18s ease,background .18s ease;
+}
+
+.toggle[aria-pressed="true"]{
+  background:var(--accent-soft);
+  border-color:rgba(14,165,160,.38);
+  color:var(--accent-deep);
+}
+
+.toggle[aria-pressed="true"] .knob{
+  transform:translateX(18px);
+  background:var(--accent);
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.step{
+  min-width:0;
+  display:grid;
+  gap:8px;
+  min-height:92px;
+  align-content:center;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--soft);
+  text-align:left;
+}
+
+.step-label{
+  color:var(--ink);
+  font-size:1rem;
+  font-weight:800;
+}
+
+.step-copy{
+  color:var(--muted);
+  font-size:.88rem;
+  font-weight:600;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.market-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:34px;
+  padding:6px 10px 6px 7px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#FFFFFF;
+  color:var(--ink);
+  font-size:.86rem;
+  font-weight:800;
+}
+
+.market-chip img{
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  flex:none;
+}
+
+.primary{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-height:54px;
+  padding:14px 18px;
+  border-radius:15px;
+  background:var(--accent);
+  color:#FFFFFF;
+  font-size:1.04rem;
+  font-weight:800;
+  box-shadow:0 22px 36px -28px rgba(14,165,160,.75);
+  transition:background .18s ease,transform .16s ease;
+}
+
+.primary:hover{
+  background:var(--accent-deep);
+  transform:translateY(-1px);
+}
+
+.primary span{
+  margin-left:8px;
+  font-size:1.3em;
+  line-height:0;
+}
+
+.foot{
+  flex:0 0 auto;
+  padding:12px 18px 20px;
+  color:var(--faint);
+  font-size:.84rem;
+  font-weight:600;
+  text-align:center;
+}
+
+@media(max-width:760px){
+  .nav{display:none}
+  .brand span{
+    max-width:190px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
+
+@media(max-width:520px){
+  .topbar{padding:14px 14px 8px;gap:10px}
+  .brand{font-size:.93rem;gap:8px}
+  .brand img{width:28px;height:28px}
+  .ghost{min-height:34px;padding:7px 12px;font-size:.82rem}
+  .stage{gap:18px;padding:6px 14px 8px}
+  .hero{gap:10px}
+  h1{font-size:2.42rem;max-width:10ch}
+  .sub{font-size:.96rem;max-width:31ch}
+  .app-card{gap:12px;padding:14px;border-radius:18px}
+  .status-row{gap:10px}
+  .state{font-size:1.08rem}
+  .toggle{min-width:90px;min-height:38px;font-size:.82rem}
+  .knob{width:27px;height:27px}
+  .toggle[aria-pressed="true"] .knob{transform:translateX(16px)}
+  .steps{grid-template-columns:1fr;gap:9px}
+  .step{min-height:72px;padding:12px}
+  .primary{min-height:50px}
+  .foot{padding:8px 14px 14px;font-size:.8rem}
+}
+
+@media(max-height:720px){
+  .topbar{padding-top:12px;padding-bottom:8px}
+  .stage{gap:16px;padding-top:4px;padding-bottom:4px}
+  h1{font-size:clamp(2.24rem,5.7vw,3.7rem)}
+  .sub{font-size:1rem}
+  .app-card{gap:12px;padding:15px}
+  .step{min-height:74px}
+  .primary{min-height:50px}
+  .foot{padding-top:7px;padding-bottom:12px}
+}
+
+
+  
+.footer {
+  text-align: center !important;
+}
+  </style>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#" aria-label="Best Crypto Trading Bot">
+    <div class="brand">
       <img src="favicon.png" width="30" height="30" alt="">
       <span>Best Crypto Trading Bot</span>
-    </a>
-    <nav class="nav" aria-label="Trusted references">
-      <a href="https://www.investopedia.com/articles/active-trading/101014/basics-algorithmic-trading-concepts-and-examples.asp" target="_blank" rel="nofollow noopener noreferrer">Algorithmic trading</a>
-      <a href="https://www.coingecko.com/" target="_blank" rel="nofollow noopener noreferrer">Crypto markets</a>
-      <a href="https://ethereum.org/wallets/" target="_blank" rel="nofollow noopener noreferrer">Wallets</a>
-    </nav>
+    </div>
     <span class="spacer"></span>
-    <a class="ghost" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Open app</a>
+    <nav class="nav" aria-label="Main Navigation">
+      <a href="how-it-works/">How it works</a>
+      <a href="faq/">FAQ</a>
+      <a href="about/">About</a>
+      <a href="security/">Security</a>
+      <a href="supported-chains/">Supported Chains</a>
+    </nav>
   </header>
-
-  <main class="stage">
-    <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title">Best Crypto Trading Bot</h1>
-      <p class="sub"><strong>Best Crypto Trading Bot</strong> automates trading strategies from your own connected wallet.</p>
-    </section>
-
-    <section class="app-card" aria-label="Automation status">
-      <div class="status-row">
-        <div>
-          <span class="eyebrow">Automation</span>
-          <span class="state" data-state>Paused</span>
-        </div>
-        <button class="toggle" type="button" data-toggle aria-pressed="false">
-          <span class="knob" aria-hidden="true"></span>
-          <span class="toggle-text">Run</span>
-        </button>
-      </div>
-
-      <div class="steps">
-        <div class="step">
-          <span class="step-label">Connect wallet</span>
-          <span class="step-copy">Self-custody access</span>
-        </div>
-        <div class="step">
-          <span class="step-label">Run strategy</span>
-          <span class="chips">
-            <span class="market-chip"><img src="btc.png" width="22" height="22" alt="BTC">BTC</span>
-            <span class="market-chip"><img src="eth.png" width="22" height="22" alt="ETH">ETH</span>
-          </span>
-        </div>
-      </div>
-
-      <a class="primary" href="https://avalanche-ecosystem.github.io/" rel="noopener noreferrer">Enter App <span aria-hidden="true">&#8250;</span></a>
-    </section>
+  <main class="stage" style="padding: 100px 24px; text-align: center; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 24px; font-weight: 800;">Best Crypto Trading Bot</h1>
+    <p class="value" style="font-size: 1.25rem; opacity: 0.8; margin-bottom: 40px; line-height: 1.6;">Secure, non-custodial gateway for decentralized operations. Connect your Web3 wallet to enter the portal.</p>
+    <a class="open-app" href="dashboard/" style="display: inline-flex; justify-content: center; align-items: center; min-height: 52px; padding: 0 32px; border-radius: 9999px; background: var(--accent, #625bf3); color: #fff; font-weight: 700; text-decoration: none; font-size: 1.1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.15); transition: transform 0.2s ease;">Open App Dashboard</a>
   </main>
-
-  <footer class="foot">Best Crypto Trading Bot &mdash; 2026</footer>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "@id": "https://avalanche-ecosystem.github.io/#website",
-        "url": "https://avalanche-ecosystem.github.io/",
-        "name": "Best Crypto Trading Bot",
-        "inLanguage": "en"
-      },
-      {
-        "@type": "WebApplication",
-        "@id": "https://avalanche-ecosystem.github.io/#app",
-        "name": "Best Crypto Trading Bot",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Web",
-        "url": "https://avalanche-ecosystem.github.io/"
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://avalanche-ecosystem.github.io/#organization",
-        "name": "Best Crypto Trading Bot",
-        "url": "https://avalanche-ecosystem.github.io/"
-      }
-    ]
-  }
-  </script>
-
-  <script>
-  (function () {
-    "use strict";
-    var button = document.querySelector("[data-toggle]");
-    var state = document.querySelector("[data-state]");
-    if (!button || !state) return;
-
-    button.addEventListener("click", function () {
-      var running = button.getAttribute("aria-pressed") === "true";
-      button.setAttribute("aria-pressed", running ? "false" : "true");
-      state.textContent = running ? "Paused" : "Running";
-      button.querySelector(".toggle-text").textContent = running ? "Run" : "Pause";
-    });
-  })();
-  </script>
+  <footer class="footer">Best Crypto Trading Bot &mdash; 2026</footer>
 </body>
 </html>
