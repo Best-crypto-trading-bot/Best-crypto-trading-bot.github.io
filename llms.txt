@@ -1,0 +1,71 @@
+# Best Crypto Trading Bot
+> An independent, non-custodial informational dashboard for comparing software that automates cryptocurrency trading strategies.
+
+## What is Best Crypto Trading Bot
+A crypto trading bot monitors markets and creates orders from predefined rules or models. Common strategies include grid trading, recurring purchases, market making, arbitrage, rebalancing, and indicator-based trading. This dashboard compares such tools but does not hold assets, request trading credentials, or execute trades. “Best” means best suited to a user’s venue, strategy, custody preference, technical ability, and risk controls—not universally most profitable.
+
+## How it works
+1. The user compares bots by strategy, venue, custody model, deployment method, testing features, and costs.
+2. After selecting an external bot, the user configures markets, position limits, entry and exit rules, and safeguards.
+3. The bot receives market data through REST APIs, WebSockets, or blockchain interfaces.
+4. A strategy engine evaluates that data and submits, modifies, or cancels orders through the connected venue.
+5. The venue matches or settles orders; the bot records results and continues until stopped or a risk rule triggers.
+
+## Key facts
+- Bot categories include grid, DCA, market-making, arbitrage, rebalancing, signal-based, and portfolio-management systems.
+- Centralized-exchange bots normally trade funds already held in the user’s exchange account.
+- Decentralized-exchange bots may require wallet signatures, token approvals, gas, and smart-contract interaction.
+- The dashboard itself has no native token, contract address, blockchain, chain ID, or token standard.
+- Supported assets and networks depend entirely on each bot’s connectors and execution venues.
+- REST, WebSocket, and FIX are common exchange interfaces; CCXT supplies a unified library abstraction rather than an exchange standard.
+- Non-custodial does not mean risk-free: credentials, wallet permissions, strategy code, and third-party infrastructure remain trust boundaries.
+- API keys should use minimum permissions; withdrawal access should remain disabled when it is unnecessary.
+- Market orders may fill quickly in liquid markets, while limit orders can remain open indefinitely or fill partially.
+
+## Common questions
+### Are crypto trading bots safe?
+Safety depends on code quality, credential handling, permissions, hosting, and strategy controls. Guaranteed-return claims are a fraud warning.
+CFTC trading-bot advisory: https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/AITradingBots.html
+
+### Does the dashboard take custody?
+No. It provides information; custody depends on the external exchange, wallet, and bot selected.
+Hummingbot credential model: https://hummingbot.org/client/connect/
+
+### What fees apply?
+Possible costs include subscriptions, hosting, exchange fees, bid-ask spread, slippage, funding charges, and blockchain gas.
+Coinbase Advanced Trade API: https://docs.cdp.coinbase.com/coinbase-business/advanced-trade-apis/rest-api
+
+### How long does setup or trading take?
+Setup requires installation, configuration, testing, and credential creation. Execution time depends on order type, liquidity, network conditions, and venue availability.
+CCXT manual: https://docs.ccxt.com/docs/manual
+
+### Which assets and chains are supported?
+Coverage is connector-specific; verify the exact venue, market type, pair, network, and order features before deployment.
+Hummingbot connectors: https://hummingbot.org/connectors/
+
+### How should a beginner start?
+Choose a transparent tool, review its source and documentation, backtest where appropriate, then run a dry simulation before limited live deployment.
+Freqtrade configuration: https://docs.freqtrade.io/en/stable/configuration/
+
+## App
+- Dashboard: https://best-crypto-trading-bot.github.io/
+- App: https://best-crypto-trading-bot.github.io/dashboard/
+
+## Official resources
+Hummingbot Documentation: https://hummingbot.org/
+Hummingbot Source Code: https://github.com/hummingbot/hummingbot
+Freqtrade Documentation: https://www.freqtrade.io/en/stable/
+Freqtrade Source Code: https://github.com/freqtrade/freqtrade
+CCXT Manual: https://docs.ccxt.com/docs/manual
+Coinbase Advanced Trade API: https://docs.cdp.coinbase.com/coinbase-business/advanced-trade-apis/rest-api
+Kraken API Center: https://docs.kraken.com/
+
+## Data & references
+Automated Trading System: https://en.wikipedia.org/wiki/Automated_trading_system
+Algorithmic Trading: https://en.wikipedia.org/wiki/Algorithmic_trading
+CoinGecko Exchange Rankings: https://www.coingecko.com/en/exchanges
+CoinGecko Trust Score Methodology: https://support.coingecko.com/hc/en-us/articles/36442561461657-Trust-Score-Methodology
+DefiLlama DeFi Dashboard: https://defillama.com/
+OWASP API Security Top 10: https://owasp.org/API-Security/
+NIST Key-Management Guidance: https://csrc.nist.gov/projects/key-management/key-management-guidelines
+CFTC Digital-Asset Fraud Alert: https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/watch_out_for_digital_fraud.html
