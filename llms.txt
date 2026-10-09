@@ -1,71 +1,48 @@
 # Best Crypto Trading Bot
-> An independent, non-custodial informational dashboard for comparing software that automates cryptocurrency trading strategies.
 
-## What is Best Crypto Trading Bot
-A crypto trading bot monitors markets and creates orders from predefined rules or models. Common strategies include grid trading, recurring purchases, market making, arbitrage, rebalancing, and indicator-based trading. This dashboard compares such tools but does not hold assets, request trading credentials, or execute trades. “Best” means best suited to a user’s venue, strategy, custody preference, technical ability, and risk controls—not universally most profitable.
+> Best Crypto Trading Bot automates crypto trading with grid, DCA and portfolio rebalancing strategies. Configure budgets, order rules and exit conditions for Bitcoin, Ethereum and Solana.
 
-## How it works
-1. The user compares bots by strategy, venue, custody model, deployment method, testing features, and costs.
-2. After selecting an external bot, the user configures markets, position limits, entry and exit rules, and safeguards.
-3. The bot receives market data through REST APIs, WebSockets, or blockchain interfaces.
-4. A strategy engine evaluates that data and submits, modifies, or cancels orders through the connected venue.
-5. The venue matches or settles orders; the bot records results and continues until stopped or a risk rule triggers.
+## Pages
+- [Best Crypto Trading Bot](https://insert_url/): Strategy cards, grid calculator, comparison, fees, API security and FAQ.
+- [Strategy dashboard](https://insert_url/dashboard/): Configure and save trading strategy parameters.
 
-## Key facts
-- Bot categories include grid, DCA, market-making, arbitrage, rebalancing, signal-based, and portfolio-management systems.
-- Centralized-exchange bots normally trade funds already held in the user’s exchange account.
-- Decentralized-exchange bots may require wallet signatures, token approvals, gas, and smart-contract interaction.
-- The dashboard itself has no native token, contract address, blockchain, chain ID, or token standard.
-- Supported assets and networks depend entirely on each bot’s connectors and execution venues.
-- REST, WebSocket, and FIX are common exchange interfaces; CCXT supplies a unified library abstraction rather than an exchange standard.
-- Non-custodial does not mean risk-free: credentials, wallet permissions, strategy code, and third-party infrastructure remain trust boundaries.
-- API keys should use minimum permissions; withdrawal access should remain disabled when it is unnecessary.
-- Market orders may fill quickly in liquid markets, while limit orders can remain open indefinitely or fill partially.
+## Strategy comparison
+- Grid: price-level triggers; monitor total equity, completed cycles, range boundaries and fees.
+- DCA: scheduled purchases; monitor average acquisition cost, balances and exposure.
+- Rebalancing: allocation-drift triggers; monitor target weights, turnover and total equity.
 
-## Common questions
-### Are crypto trading bots safe?
-Safety depends on code quality, credential handling, permissions, hosting, and strategy controls. Guaranteed-return claims are a fraud warning.
-CFTC trading-bot advisory: https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/AITradingBots.html
+## Grid calculator
+Geometric spacing = (upper price / lower price)^(1 / intervals) - 1.
+Net cycle margin = spacing - buy fee - (1 + spacing) * sell fee. Fees use decimal values.
+Quote budget per interval = strategy budget / intervals.
+Defaults: 3,000 USDT budget, 12 intervals, 60,000 lower price, 72,000 upper price and 0.10% trading fee per side.
+Total strategy results also include open-position value, spread, slippage, subscription fees and reserve capital.
 
-### Does the dashboard take custody?
-No. It provides information; custody depends on the external exchange, wallet, and bot selected.
-Hummingbot credential model: https://hummingbot.org/client/connect/
+## Security
+Use dedicated API keys with read and trade permissions, disabled withdrawals, account limits and an IP allowlist where supported.
 
-### What fees apply?
-Possible costs include subscriptions, hosting, exchange fees, bid-ask spread, slippage, funding charges, and blockchain gas.
-Coinbase Advanced Trade API: https://docs.cdp.coinbase.com/coinbase-business/advanced-trade-apis/rest-api
+## Frequently asked questions
 
-### How long does setup or trading take?
-Setup requires installation, configuration, testing, and credential creation. Execution time depends on order type, liquidity, network conditions, and venue availability.
-CCXT manual: https://docs.ccxt.com/docs/manual
+### What is the Best Crypto Trading Bot for my strategy?
+Choose a grid bot to trade repeated price moves inside a range, a DCA bot to buy a fixed amount on a schedule, or a rebalancing bot to maintain portfolio weights. Compare the trigger, capital requirements and exit controls before choosing a configuration.
 
-### Which assets and chains are supported?
-Coverage is connector-specific; verify the exact venue, market type, pair, network, and order features before deployment.
-Hummingbot connectors: https://hummingbot.org/connectors/
+### How does a crypto grid trading bot work?
+A grid bot splits a price range into levels. It places buy orders at lower levels and sell orders at higher levels, then replaces filled orders according to the grid rules. A geometric grid uses the same percentage distance between adjacent levels. Trading fees reduce the margin on each completed pair of orders.
 
-### How should a beginner start?
-Choose a transparent tool, review its source and documentation, backtest where appropriate, then run a dry simulation before limited live deployment.
-Freqtrade configuration: https://docs.freqtrade.io/en/stable/configuration/
+### How much money do I need for a crypto trading bot?
+The minimum budget depends on the exchange minimum order size and the number of funded orders. At $10 per order, 12 equally funded orders need at least $120 before fees and reserves. Check minimum quantity, price precision and the required base and quote balances for your selected pair.
 
-## App
-- Dashboard: https://best-crypto-trading-bot.github.io/
-- App: https://best-crypto-trading-bot.github.io/dashboard/
+### Can I use a trading bot for Bitcoin, Ethereum and Solana?
+Use BTC, ETH or SOL trading pairs available on your connected exchange. Select a quote asset such as USDT or USDC, then set a separate budget and rules for each pair. Liquidity, order minimums and fee tiers differ by market.
 
-## Official resources
-Hummingbot Documentation: https://hummingbot.org/
-Hummingbot Source Code: https://github.com/hummingbot/hummingbot
-Freqtrade Documentation: https://www.freqtrade.io/en/stable/
-Freqtrade Source Code: https://github.com/freqtrade/freqtrade
-CCXT Manual: https://docs.ccxt.com/docs/manual
-Coinbase Advanced Trade API: https://docs.cdp.coinbase.com/coinbase-business/advanced-trade-apis/rest-api
-Kraken API Center: https://docs.kraken.com/
+### What fees should I include in a trading bot strategy?
+Include the maker or taker fee on both the buy and sell, the bid-ask spread, slippage and any bot subscription charge. A 0.10% buy fee and a 0.10% sell fee cost about 0.20% across a round trip relative to the initial order value. Funding payments also apply to perpetual futures positions.
 
-## Data & references
-Automated Trading System: https://en.wikipedia.org/wiki/Automated_trading_system
-Algorithmic Trading: https://en.wikipedia.org/wiki/Algorithmic_trading
-CoinGecko Exchange Rankings: https://www.coingecko.com/en/exchanges
-CoinGecko Trust Score Methodology: https://support.coingecko.com/hc/en-us/articles/36442561461657-Trust-Score-Methodology
-DefiLlama DeFi Dashboard: https://defillama.com/
-OWASP API Security Top 10: https://owasp.org/API-Security/
-NIST Key-Management Guidance: https://csrc.nist.gov/projects/key-management/key-management-guidelines
-CFTC Digital-Asset Fraud Alert: https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/watch_out_for_digital_fraud.html
+### Does a crypto trading bot need withdrawal access?
+Use an exchange API key with read and trade permissions, and keep withdrawals disabled. Restrict the key to the required account, apply an IP allowlist when supported, and revoke unused keys from the exchange settings.
+
+### What happens when the price leaves the grid range?
+A fixed grid has no additional levels outside its boundaries. Below the lower limit, the position becomes more concentrated in the base asset; above the upper limit, it becomes more concentrated in the quote asset. Set a stop condition and review whether to pause, close or adjust the range.
+
+### What is the difference between grid profit and total profit?
+Grid profit measures completed buy and sell cycles after their trading fees. Total profit also includes the changing value of open positions and other costs. Review realized profit, unrealized profit and total equity together when evaluating a bot.
