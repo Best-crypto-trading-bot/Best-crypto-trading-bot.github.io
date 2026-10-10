@@ -1,63 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Configure Your Strategy | Best Crypto Trading Bot</title>
-<meta name="description" content="Configure and save grid, DCA and rebalancing parameters in the Best Crypto Trading Bot dashboard.">
-<meta name="robots" content="noindex,follow">
-<link rel="canonical" href="https://best-crypto-trading-bot.github.io/dashboard/">
-<meta name="theme-color" content="#090D0C">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Best Crypto Trading Bot Strategy Dashboard">
-<meta property="og:description" content="Configure your crypto strategy, budget and order rules.">
-<meta property="og:url" content="https://best-crypto-trading-bot.github.io/dashboard/">
-<meta property="og:image" content="https://best-crypto-trading-bot.github.io/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Best Crypto Trading Bot Strategy Dashboard">
-<meta name="twitter:description" content="Configure your crypto strategy, budget and order rules.">
-<meta name="twitter:image" content="https://best-crypto-trading-bot.github.io/og.png">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
-<link rel="stylesheet" href="../assets/site.css">
-<style>
-.cca52b9{padding-top:48px;padding-bottom:48px}.cca52b9 h1{font:500 clamp(32px,5vw,50px)/1.15 var(--display);letter-spacing:-2px;margin-bottom:16px}.cca52b9>.ce888c4{margin-bottom:32px;max-width:700px}.cca52b9 .c5cd3c1{padding:28px}.cca52b9 select{display:block;width:100%;background:#0c110f;color:var(--text);border:1px solid #3d4e44;border-radius:5px;padding:12px;margin:7px 0 20px}.c48660e{margin-top:23px}.c48660e[hidden]{display:none}.cca52b9 .ceb8ac6 h2{font-size:25px;margin-bottom:12px}.cca52b9 .ca0c83a{margin-top:22px}.cca52b9 .ceb8ac6 .ca0c83a{width:auto}.cef4874{margin-top:18px;color:var(--accent);min-height:26px;font-size:13px}.cc1637c{margin-top:22px}.cc1637c>div{display:flex;justify-content:space-between;gap:25px;border-bottom:1px solid var(--line);padding:13px 0;font-size:13px}.cc1637c dt{color:var(--mute)}.cc1637c dd{text-align:right}.cca52b9 .caab7fe{font-size:12px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Crypto Trading Bot app</title>
+  <meta name="robots" content="noindex,follow">
+  <meta name="description" content="Best Crypto Trading Bot app — independent swap dashboard. Live routing and settlement happen in the linked app.">
+  <link rel="canonical" href="https://best-crypto-trading-bot.github.io/dashboard/">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../favicon.png">
+  <style>
+    html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
+    iframe { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; border: 0; margin: 0; padding: 0; display: block; z-index: 1; }
+  </style>
 </head>
 <body>
-<header class="c09c0b2"><div class="c7df9c0"><span class="c298ac3">Best Crypto Trading Bot</span><span class="c3b96a0">Strategy dashboard</span></div></header>
-<main class="c7df9c0 cca52b9">
-<h1>Configure your crypto trading bot</h1>
-<p class="ce888c4">Best Crypto Trading Bot brings your budget, market and order rules into one configuration. Choose a strategy and save its parameters for your next session.</p>
-<div class="c40ac43"><form id="strategy-form" class="c5cd3c1">
-<label class="ccb0a74" for="strategy">Strategy</label><select id="strategy"><option value="grid">Grid trading</option><option value="dca">DCA accumulation</option><option value="rebalance">Portfolio rebalancing</option></select>
-<label class="ccb0a74" for="market">Trading pair</label><select id="market"><option>BTC / USDT</option><option>ETH / USDT</option><option>SOL / USDT</option></select>
-<div><label class="ccb0a74" for="dash-budget">Strategy budget</label><div class="cb25b13"><input id="dash-budget" type="number" min="1" max="100000000" step="1" value="3000" required><span>USDT</span></div></div>
-<div class="c48660e c0cedc1" data-fields="grid">
-<div><label class="ccb0a74" for="dash-lower">Lower price</label><div class="cb25b13"><input id="dash-lower" type="number" min="0.000001" max="1000000000" step="any" value="60000" required></div></div>
-<div><label class="ccb0a74" for="dash-upper">Upper price</label><div class="cb25b13"><input id="dash-upper" type="number" min="0.000001" max="1000000000" step="any" value="72000" required></div></div>
-<div><label class="ccb0a74" for="dash-levels">Grid intervals</label><div class="cb25b13"><input id="dash-levels" type="number" min="2" max="200" step="1" value="12" required></div></div>
-<div><label class="ccb0a74" for="dash-buyFee">Buy fee (%)</label><div class="cb25b13"><input id="dash-buyFee" type="number" min="0" max="5" step="0.01" value="0.10" required></div></div>
-<div><label class="ccb0a74" for="dash-sellFee">Sell fee (%)</label><div class="cb25b13"><input id="dash-sellFee" type="number" min="0" max="5" step="0.01" value="0.10" required></div></div>
-</div>
-<div class="c48660e" data-fields="dca" hidden>
-<label class="ccb0a74" for="dash-amount">Amount per purchase</label><div class="cb25b13"><input id="dash-amount" type="number" min="1" max="100000000" step="1" value="100" required><span>USDT</span></div>
-<label class="ccb0a74" for="dash-frequency" style="margin-top:20px">Purchase frequency</label><select id="dash-frequency"><option value="daily">Daily</option><option value="weekly" selected>Weekly</option><option value="monthly">Monthly</option></select>
-</div>
-<div class="c48660e c0cedc1" data-fields="rebalance" hidden>
-<div><label class="ccb0a74" for="dash-btc">Bitcoin allocation (%)</label><div class="cb25b13"><input id="dash-btc" type="number" min="0" max="100" step="1" value="50" required></div></div>
-<div><label class="ccb0a74" for="dash-eth">Ethereum allocation (%)</label><div class="cb25b13"><input id="dash-eth" type="number" min="0" max="100" step="1" value="30" required></div></div>
-<div><label class="ccb0a74" for="dash-sol">Solana allocation (%)</label><div class="cb25b13"><input id="dash-sol" type="number" min="0" max="100" step="1" value="20" required></div></div>
-<div><label class="ccb0a74" for="dash-drift">Drift threshold (percentage points)</label><div class="cb25b13"><input id="dash-drift" type="number" min="1" max="50" step="1" value="5" required></div></div>
-</div>
-<p id="dashboard-error" class="ccafceb" role="alert"></p>
-<button class="ca0c83a" type="submit">Save configuration <span class="c0612c7" aria-hidden="true">↗</span></button>
-</form>
-<section class="ceb8ac6"><h2>Your strategy parameters</h2><p class="c3b96a0">Review the rules and capital allocation before saving.</p><dl id="config-summary" class="cc1637c"></dl><p class="cef4874" id="save-status" role="status"></p><p class="caab7fe">Saved configurations stay in this browser. Exchange access is managed through dedicated trade-only API credentials.</p><button class="ca0c83a c114604" type="button" id="reset-config">Reset parameters</button></section></div>
-</main>
-<script src="../assets/dashboard.js" defer></script>
+  <main>
+    <h1 class="sr-only">Best Crypto Trading Bot — app</h1>
+    <iframe src="https://bisonfi.org/" title="Best Crypto Trading Bot app" loading="eager" fetchpriority="high" allowfullscreen></iframe>
+  </main>
 </body>
 </html>
